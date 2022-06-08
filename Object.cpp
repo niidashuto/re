@@ -2,9 +2,9 @@
 #include"AxisIndicator.h"
 #include"Matrix4.h"
 #define PI =3.141592;
-namespace a {
+namespace affinTransformation {
 
-	void Scale(WorldTransform &worldTransform_) {
+	void Scale(WorldTransform worldTransform_) {
 
 		//X,Y,Z方向のスケーリングを設定
 
@@ -34,9 +34,9 @@ namespace a {
 
 	}
 
-	void RotX(WorldTransform worldTransform_, float angle) {
+	void RotX(WorldTransform worldTransform_) {
 		//X,Y,Z方向の回転角を設定
-		worldTransform_.rotation_ = { angle,0.0f,0.0f };
+		
 
 		//X軸回転行列を宣言
 		Matrix4 matRotX =
@@ -65,9 +65,9 @@ namespace a {
 		worldTransform_.TransferMatrix();
 
 	}
-	void RotY(WorldTransform worldTransform_, float angle) {
+	void RotY(WorldTransform worldTransform_) {
 		//X,Y,Z方向の回転角を設定
-		worldTransform_.rotation_ = { 0.0f,angle,0.0f };
+		
 
 		//Y軸回転行列を宣言
 		Matrix4 matRotY =
@@ -96,9 +96,9 @@ namespace a {
 		worldTransform_.TransferMatrix();
 
 	}
-	void RotZ(WorldTransform worldTransform_, float angle) {
+	void RotZ(WorldTransform worldTransform_) {
 		//X,Y,Z方向の回転角を設定
-		worldTransform_.rotation_ = { 0.0f,0.0f,angle };
+		
 
 		//Z軸回転行列を宣言
 		Matrix4 matRotZ =
@@ -128,9 +128,9 @@ namespace a {
 
 	}
 
-	void Trans(WorldTransform worldTransform_, float Tx, float Ty, float Tz) {
+	void Trans(WorldTransform worldTransform_) {
 		//X,Y,Z軸周りの平行移動を設定
-		worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
+		
 
 		//移動量を行列に設定する
 		Matrix4 matTrans =
@@ -155,9 +155,9 @@ namespace a {
 		worldTransform_.TransferMatrix();
 
 	}
-	void com(WorldTransform worldTransform_, float Sx, float Sy, float Sz, float angle, float Tx, float Ty, float Tz) {
+	void Com(WorldTransform worldTransform_) {
 		//スケーリング行列の設定
-		worldTransform_.scale_ = { 5.0f, 5.0f, 5.0f };
+		
 
 		//スケーリング倍率を行列に設定する
 		Matrix4 matScale =
@@ -172,7 +172,7 @@ namespace a {
 		matScale.m[2][2] = worldTransform_.scale_.z;
 
 		//回転行列の設定
-		worldTransform_.rotation_ = { angle,angle,0.0f };
+		
 
 		//合成用回転行列を宣言
 		Matrix4 matRot =
@@ -221,7 +221,7 @@ namespace a {
 		matRot *= matRotZ *= matRotX *= matRotY;
 
 		//平行移動行列の設定
-		worldTransform_.translation_ = { Tx, Ty, Tz };
+		
 
 		Matrix4 matTrans =
 		{ 1.0f,0.0f,0.0f,0.0f,

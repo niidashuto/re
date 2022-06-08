@@ -35,7 +35,9 @@ void GameScene::Initialize() {
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 	
 	worldTransform_.scale_ = { 5.0f, 5.0f, 5.0f };
-	affinTransformation::Scale(worldTransform_);
+	worldTransform_.rotation_ = { PI / 4,PI / 4,0.0f };
+	worldTransform_.translation_ = { 10.0f,10.0f,10.0f };
+	affinTransformation::Com(worldTransform_);
 
 	
 
