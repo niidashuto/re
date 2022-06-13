@@ -21,38 +21,7 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	//3Dモデルの生成
 	model_ = Model::Create();
-	//乱数シード生成器
-	std::random_device seed_gen;
-	//メルセンヌ・ツイスターの乱数エンジン
-	std::mt19937_64 engin(seed_gen());
-
-	for (WorldTransform& worldTransform_ : worldTransforms_) {
-		//乱数範囲の指定
-		std::uniform_real_distribution<float> dist(100.0f, 100.0f);
-		float value = dist(engin);
-
-		std::uniform_real_distribution<float> Rotdist(0.0f, PI*2);
-		float Rotvalue = Rotdist(engin);
-
-		std::uniform_real_distribution<float> TransXdist(-10.0f, 10.0f);
-		float TransXvalue = TransXdist(engin);
-
-		std::uniform_real_distribution<float> TransYdist(-10.0f, 10.0f);
-		float TransYvalue = TransYdist(engin);
-
-		std::uniform_real_distribution<float> TransZdist(-10.0f, 10.0f);
-		float TransZvalue = TransZdist(engin);
-
-		worldTransform_.Initialize();
-
-		worldTransform_.scale_ = { 1.0f, 1.0f, 1.0f };
-		worldTransform_.rotation_ = { Rotvalue,Rotvalue,Rotvalue };
-		worldTransform_.translation_ = { TransXvalue,TransYvalue,TransZvalue };
-		affinTransformation::Com(worldTransform_);
-
-		
-		
-	}
+	
 	//親(0番)
 	worldTransforms_[0].Initialize();
 	//子(1番)
