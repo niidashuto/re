@@ -25,6 +25,7 @@ void GameScene::Initialize() {
 	std::random_device seed_gen;
 	//メルセンヌ・ツイスターの乱数エンジン
 	std::mt19937_64 engin(seed_gen());
+
 	for (WorldTransform& worldTransform_ : worldTransforms_) {
 		//乱数範囲の指定
 		std::uniform_real_distribution<float> dist(100.0f, 100.0f);
@@ -48,9 +49,17 @@ void GameScene::Initialize() {
 		worldTransform_.rotation_ = { Rotvalue,Rotvalue,Rotvalue };
 		worldTransform_.translation_ = { TransXvalue,TransYvalue,TransZvalue };
 		affinTransformation::Com(worldTransform_);
-		
 
+		
+		
 	}
+	//親(0番)
+	worldTransforms_[0].Initialize();
+	//子(1番)
+	worldTransforms_[1].Initialize();
+	worldTransforms_[1].translation_ = { 0,4.5f,0 };
+	worldTransforms_[1].parent_ = &worldTransforms_[0];
+	
 	//カメラ視点座標を設定
 	//viewProjection_.eye = { 0,0,-10 };
 	//カメラ注視点座標を設定
@@ -492,6 +501,25 @@ void GameScene::Update() {
 		debugText_->Printf("nearZ:%f",
 			viewProjection_.nearZ);
 	}
+	//キャラクター移動処理
+	{
+		//キャラクターの移動ベクトル
+		Vector3 move = { 0,0,0 };
+		//キャラクターの移動速度
+		const float kTargetSpeed = 0.2f;
+		//押した方向で移動ベクトルを変更
+		if (input_->PushKey(DIK_LEFT)) {
+			move = { -kTargetSpeed,0,0 };
+		}
+		else if (input_->PushKey(DIK_RIGHT)) {
+			move = { kTargetSpeed,0,0 };
+		}
+		worldTransforms_[0].translation_ += move;
+
+		worldTransforms_[0].TransferMatrix();
+		//デバッグ用表示
+		
+	}
 }
 
 void GameScene::Draw() {
@@ -522,9 +550,12 @@ void GameScene::Draw() {
 	/// </summary>
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 	//PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3,Vector3,Vector4)
-	for (WorldTransform& worldTransform_ : worldTransforms_) {
-		model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	}
+
+	
+		model_->Draw(worldTransforms_[0], viewProjection_, textureHandle_);
+		model_->Draw(worldTransforms_[1], viewProjection_, textureHandle_);
+	
+	
 	//3Dモデル描画
 	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 3Dオブジェクト描画後処理
