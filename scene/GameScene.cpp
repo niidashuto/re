@@ -29,14 +29,19 @@ void GameScene::Initialize() {
 		//乱数範囲の指定
 		std::uniform_real_distribution<float> dist(100.0f, 100.0f);
 		float value = dist(engin);
+
 		std::uniform_real_distribution<float> Rotdist(0.0f, PI*2);
 		float Rotvalue = Rotdist(engin);
+
 		std::uniform_real_distribution<float> TransXdist(-10.0f, 10.0f);
 		float TransXvalue = TransXdist(engin);
+
 		std::uniform_real_distribution<float> TransYdist(-10.0f, 10.0f);
 		float TransYvalue = TransYdist(engin);
+
 		std::uniform_real_distribution<float> TransZdist(-10.0f, 10.0f);
 		float TransZvalue = TransZdist(engin);
+
 		worldTransform_.Initialize();
 
 		worldTransform_.scale_ = { 1.0f, 1.0f, 1.0f };
