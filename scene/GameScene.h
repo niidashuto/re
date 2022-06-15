@@ -60,6 +60,20 @@ class GameScene {
 	DebugCamera* debugCamera_ = nullptr;
     //カメラ上方向の角度
 	float viewAngle = 0.0f;
+public:
+	enum PartId {
+		kRoot,
+		kSpine,
+		kChest,
+		kHead,
+		kArmL,
+		kArmR,
+		kHip,
+		kLegL,
+		kLegR
+
+		
+	};
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
