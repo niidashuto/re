@@ -386,7 +386,7 @@ void GameScene::Update() {
 		worldTransforms_[0].translation_.z += move.z;
 		
 		worldTransforms_[0].TransferMatrix();
-		worldTransforms_[1].TransferMatrix();
+		
 		//デバッグ用表示
 		debugText_->SetPos(50, 150);
 		debugText_->Printf(
