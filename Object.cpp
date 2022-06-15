@@ -246,5 +246,93 @@ namespace affinTransformation {
 		worldTransform_.TransferMatrix();
 
 	}
+	void Par(WorldTransform worldTransforms_[100])
+	{
+		//‘åŒ³‚©‚ç‡‚ÉXV‚µ‚Ä‚¢‚­
+
+		Matrix4 matScale =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+
+		matScale.m[0][0] = worldTransforms_[1].scale_.x;
+		matScale.m[1][1] = worldTransforms_[1].scale_.y;
+		matScale.m[2][2] = worldTransforms_[1].scale_.z;
+
+		//‰ñ“]s—ñ‚ÌÝ’è
+
+
+		//‡¬—p‰ñ“]s—ñ‚ðéŒ¾
+		Matrix4 matRot =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+		//ŠeŽ²—p‰ñ“]s—ñ‚ðéŒ¾
+		Matrix4 matRotZ =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+		Matrix4 matRotX =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+		Matrix4 matRotY =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+		//ZŽ²‰ñ“]s—ñ‚ÌŠe—v‘f‚ðÝ’è‚·‚é(‰ñ“]ŠpƒÆZ)
+		matRotZ.m[0][0] = cos(worldTransforms_[1].rotation_.z);
+		matRotZ.m[0][1] = sin(worldTransforms_[1].rotation_.z);
+		matRotZ.m[1][0] = -sin(worldTransforms_[1].rotation_.z);
+		matRotZ.m[1][1] = cos(worldTransforms_[1].rotation_.z);
+
+		//XŽ²‰ñ“]s—ñ‚ÌŠe—v‘f‚ðÝ’è‚·‚é(‰ñ“]ŠpƒÆX)
+		matRotX.m[1][1] = cos(worldTransforms_[1].rotation_.x);
+		matRotX.m[1][2] = sin(worldTransforms_[1].rotation_.x);
+		matRotX.m[2][1] = -sin(worldTransforms_[1].rotation_.x);
+		matRotX.m[2][2] = cos(worldTransforms_[1].rotation_.x);
+
+		//YŽ²‰ñ“]s—ñ‚ÌŠe—v‘f‚ðÝ’è‚·‚é(‰ñ“]ŠpƒÆY)
+		matRotY.m[0][0] = cos(worldTransforms_[1].rotation_.y);
+		matRotY.m[0][2] = -sin(worldTransforms_[1].rotation_.y);
+		matRotY.m[2][0] = sin(worldTransforms_[1].rotation_.y);
+		matRotY.m[2][2] = cos(worldTransforms_[1].rotation_.y);
+
+		//ŠeŽ²‚Ì‰ñ“]s—ñ‚ð‡¬
+		matRot *= matRotZ *= matRotX *= matRotY;
+
+		//•½sˆÚ“®s—ñ‚ÌÝ’è
+
+
+		Matrix4 matTrans =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+		matTrans.m[3][0] = worldTransforms_[1].translation_.x;
+		matTrans.m[3][1] = worldTransforms_[1].translation_.y;
+		matTrans.m[3][2] = worldTransforms_[1].translation_.z;
+
+		//s—ñ‚Ì‡¬
+		worldTransforms_[1].matWorld_ =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+		worldTransforms_[1].matWorld_ *= matScale *= matRot *= matTrans *= worldTransforms_[1].parent_->matWorld_;
+
+		worldTransforms_[1].TransferMatrix();
+	}
 
 }
