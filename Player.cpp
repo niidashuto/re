@@ -103,6 +103,6 @@ void Player::Attack()
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_,worldTransform_.translation_);
 		//’e‚ð“o˜^‚·‚é
-		bullet_ = newBullet;
+		bullet_.reset(newBullet);
 	}
 }
