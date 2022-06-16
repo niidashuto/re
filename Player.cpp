@@ -17,6 +17,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle)
 
 void Player::Update()
 {
+	//キャラクターの移動処理
+	
 	//キャラクターの移動ベクトル
 	Vector3 move = { 0, 0, 0 };
 
@@ -37,6 +39,28 @@ void Player::Update()
 	else if (input_->PushKey(DIK_S)) {
 		move = { 0,-kCharactorSpeed,0 };
 	}
+	//プレイヤーをY軸方向に回転させる処理
+	
+	//回転速度[ラジアン/frame]
+	const float kChestRotSpeed = 0.05f;
+
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_U))
+	{
+		worldTransform_.rotation_.y += kChestRotSpeed;
+	}
+	else if (input_->PushKey(DIK_I)) {
+		worldTransform_.rotation_.y -= kChestRotSpeed;
+	}
+	//キャラクターの攻撃処理
+	Attack();
+
+	//弾の更新
+	if (bullet_)
+	{
+		bullet_->Update();
+	}
+
 	//移動限界座標
 	const float kMoveLimitX = 35.0f;
 	const float kMoveLimitY = 18.0f;
@@ -51,17 +75,34 @@ void Player::Update()
 	worldTransform_.translation_.z += move.z;
 
 	//関数を使ってプレイヤーを平行移動させる
-	affinTransformation::Trans(worldTransform_);
+	affinTransformation::Com(worldTransform_);
 	
 	//デバッグ用
 	debugText_->SetPos(50, 150);
 	debugText_->Printf("%f,%f,%f", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
 	
-
+	
 	
 }
 
 void Player::Draw(ViewProjection viewprojection_)
 {
 	model_->Draw(worldTransform_, viewprojection_, textureHandle_);
+	//弾の描画
+	if (bullet_)
+	{
+		bullet_->Draw(viewprojection_);
+	}
+}
+
+void Player::Attack()
+{
+	if (input_->PushKey(DIK_SPACE))
+	{
+		//弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_,worldTransform_.translation_);
+		//弾を登録する
+		bullet_ = newBullet;
+	}
 }

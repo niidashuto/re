@@ -6,7 +6,7 @@ namespace affinTransformation{
 	void RotX(WorldTransform worldTransform_);
 	void Trans(WorldTransform worldTransform_);
 	void Com(WorldTransform worldTransform_);
-	void Par(WorldTransform worldTransforms_[100]);
+	void Par(WorldTransform worldTransform_);
 }
 
 
