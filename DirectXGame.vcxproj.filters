@@ -49,6 +49,18 @@
     <Filter Include="ヘッダー ファイル\math">
       <UniqueIdentifier>{647f4977-924a-4954-923f-5619e5afc9a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\playerbullet">
+      <UniqueIdentifier>{07bff4b2-459f-4b44-b61a-20495bd79f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\playerbullet">
+      <UniqueIdentifier>{2b770b0c-ec08-49bc-8f78-63a556ead451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\player">
+      <UniqueIdentifier>{0bfab0d8-5f9d-4ce7-9426-9271c6125b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\player">
+      <UniqueIdentifier>{9c6963cc-fcad-4ad1-92dc-ece206f182e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,11 +81,11 @@
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="player\Player.cpp">
+      <Filter>ソース ファイル\player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="playerbullet\PlayerBullet.cpp">
+      <Filter>ソース ファイル\playerbullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +173,11 @@
     <ClInclude Include="Object.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="player\Player.h">
+      <Filter>ヘッダー ファイル\player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="playerbullet\PlayerBullet.h">
+      <Filter>ヘッダー ファイル\playerbullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
