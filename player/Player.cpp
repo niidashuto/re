@@ -56,7 +56,7 @@ void Player::Update()
 	Attack();
 
 	//’e‚ÌXV
-	if (bullet_)
+	for (std::unique_ptr<PlayerBullet>& bullet_:bullets_)
 	{
 		bullet_->Update();
 	}
@@ -89,7 +89,7 @@ void Player::Draw(ViewProjection viewprojection_)
 {
 	model_->Draw(worldTransform_, viewprojection_, textureHandle_);
 	//’e‚Ì•`‰æ
-	if (bullet_)
+	for (std::unique_ptr<PlayerBullet>&bullet_:bullets_)
 	{
 		bullet_->Draw(viewprojection_);
 	}
@@ -97,12 +97,12 @@ void Player::Draw(ViewProjection viewprojection_)
 
 void Player::Attack()
 {
-	if (input_->PushKey(DIK_SPACE))
+	if (input_->TriggerKey(DIK_SPACE))
 	{
 		//’e‚ğ¶¬‚µA‰Šú‰»
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_,worldTransform_.translation_);
+		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Initialize(model_, worldTransform_.translation_);
 		//’e‚ğ“o˜^‚·‚é
-		bullet_ = newBullet;
+		bullets_.push_back(std::move(newBullet));
 	}
 }
