@@ -1,7 +1,7 @@
 #include "PlayerBullet.h"
 #include <cassert>
 #include"Object.h"
-void PlayerBullet::Initialize(Model* model, const Vector3& position)
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity)
 {
 	assert(model);
 
@@ -12,10 +12,16 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position)
 	worldTransform_.Initialize();
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = {position.x,position.y,position.z };
+	//引数で受け取った速度をメンバ変数に代入
+	velocity_ = velocity;
 }
 
 void PlayerBullet::Update()
 {
+	//座標を移動させる(1フレーム分の移動量を足す)
+	worldTransform_.translation_ += {0,0,0.5f};
+
+	//行列を更新
 	affinTransformation::Par(worldTransform_);
 }
 

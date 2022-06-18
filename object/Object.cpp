@@ -336,5 +336,9 @@ namespace affinTransformation {
 			worldTransform_.TransferMatrix();
 		
 	}
+	void mat(Vector3 vec, WorldTransform worldTransform_)
+	{
+		
+	}
 
 }

@@ -99,9 +99,15 @@ void Player::Attack()
 {
 	if (input_->TriggerKey(DIK_SPACE))
 	{
+		//弾の速度
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0, 0, kBulletSpeed);
+		
+		//速度ベクトルを自機の向きに合わせて回転させる
+		velocity = (velocity, worldTransform_.matWorld_);
 		//弾を生成し、初期化
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
 		//弾を登録する
 		bullets_.push_back(std::move(newBullet));
 	}
