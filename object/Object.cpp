@@ -336,9 +336,16 @@ namespace affinTransformation {
 			worldTransform_.TransferMatrix();
 		
 	}
-	void mat(Vector3 vec, WorldTransform worldTransform_)
+	void mat(Vector3 vec, Matrix4 worldTransform_ )
 	{
-		
+		//çsóÒÇÃçáê¨
+		worldTransform_ =
+		{ 1.0f,0.0f,0.0f,0.0f,
+		  0.0f,1.0f,0.0f,0.0f,
+		  0.0f,0.0f,1.0f,0.0f,
+		  0.0f,0.0f,0.0f,1.0f };
+
+		vec*=worldTransform_
 	}
 
 }
