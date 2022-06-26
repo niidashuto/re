@@ -12,7 +12,8 @@
 #include "DebugCamera.h"
 #include "Object.h"
 #include "Player.h"
-
+#include "Enemy.h"
+#include"RailCamera.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -78,6 +79,10 @@ public:
 	};
 	//自キャラ
 	Player* player_ = nullptr;
+	//敵キャラ
+	Enemy* enemy_ = nullptr;
+	//レールカメラ
+	//RailCamera* railcamera_ = nullptr;
 	//デバックカメラ有効
 	bool isDebugCameraActive_ = false;
 	/// <summary>
