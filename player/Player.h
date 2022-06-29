@@ -29,5 +29,7 @@ private:
 	Input* input_ = nullptr;
 	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
+
+	ViewProjection viewProjection_;
 };
 

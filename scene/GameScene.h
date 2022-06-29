@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include"RailCamera.h"
+#include"Skydome.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -55,8 +56,10 @@ class GameScene {
 	uint32_t textureHandle_ = 0;
 	//3Dモデル
 	Model* model_ = nullptr;
+	//3Dモデル
+	Model* modelSkydome_ = nullptr;
 	//ワールドトランスフォーム
-	
+	WorldTransform worldTransform_;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 	//デバッグカメラ
@@ -81,6 +84,11 @@ public:
 	Player* player_ = nullptr;
 	//敵キャラ
 	Enemy* enemy_ = nullptr;
+
+	//Skydome* skydome_ = nullptr;
+
+
+	
 	//レールカメラ
 	//RailCamera* railcamera_ = nullptr;
 	//デバックカメラ有効
