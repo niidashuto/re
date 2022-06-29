@@ -1,13 +1,13 @@
-//#pragma once
-//#include"WorldTransform.h"
-//#include"Model.h"
+#pragma once
+#include"WorldTransform.h"
+#include"Model.h"
 //class Skydome
 //{
 //public:
 //	///<summary>
 //	///‰Šú‰»
 //	///</summary> 
-//	void Initialize(Model* model);
+//	void Initialize();
 //	///<summary>
 //	///XV
 //	///</summary> 

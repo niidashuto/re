@@ -13,6 +13,7 @@
 #include"Object.h"
 #include"Player.h"
 #include"Enemy.h"
+#include"Skydome.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -52,8 +53,11 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+
+	uint32_t textureHandle2_ = 0;
 	//3Dモデル
 	Model* model_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
@@ -80,6 +84,10 @@ public:
 	Player* player_ = nullptr;
 
 	Enemy* enemy_ = nullptr;
+
+	//Skydome* skydome_ = nullptr;
+
+	
 	//デバックカメラ有効
 	bool isDebugCameraActive_ = false;
 	/// <summary>

@@ -1,11 +1,8 @@
-//#include "Skydome.h"
-//#include<cassert>
-//void Skydome::Initialize(Model* model)
+#include "Skydome.h"
+#include<cassert>
+//void Skydome::Initialize()
 //{
-//	assert(model);
-//	model_ = model;
-//
-//	worldTransform_.Initialize();
+//	
 //}
 //
 //void Skydome::Update()

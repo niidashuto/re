@@ -19,6 +19,8 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
+
+	textureHandle2_ = TextureManager::Load("backscreen.jpg");
 	//3Dモデルの生成
 	model_ = Model::Create();
 	//3Dモデルの生成(背景)
@@ -68,7 +70,9 @@ void GameScene::Initialize() {
 
 	//skydome_ = new Skydome();
 
-	//skydome_->Initialize(modelSkydome_);
+	//skydome_->Initialize();
+
+	//modelSkydome_ = Model::CreateFromOBJ("tenkyu", true);
 	
 
 	
@@ -272,8 +276,9 @@ void GameScene::Draw() {
 
 	enemy_->Draw(viewProjection_);
 	
+	
 	//3Dモデル描画
-	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_, viewProjection_,textureHandle2_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
