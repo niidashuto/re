@@ -9,12 +9,10 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "DebugCamera.h"
-#include "Object.h"
-#include "Player.h"
-#include "Enemy.h"
-#include"RailCamera.h"
-#include"Skydome.h"
+#include"DebugCamera.h"
+#include"Object.h"
+#include"Player.h"
+#include"Enemy.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -56,8 +54,6 @@ class GameScene {
 	uint32_t textureHandle_ = 0;
 	//3Dモデル
 	Model* model_ = nullptr;
-	//3Dモデル
-	Model* modelSkydome_ = nullptr;
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
@@ -82,15 +78,8 @@ public:
 	};
 	//自キャラ
 	Player* player_ = nullptr;
-	//敵キャラ
+
 	Enemy* enemy_ = nullptr;
-
-	//Skydome* skydome_ = nullptr;
-
-
-	
-	//レールカメラ
-	//RailCamera* railcamera_ = nullptr;
 	//デバックカメラ有効
 	bool isDebugCameraActive_ = false;
 	/// <summary>

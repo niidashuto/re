@@ -28,8 +28,8 @@ void GameScene::Initialize() {
 	//メルセンヌ・ツイスターの乱数エンジン
 	std::mt19937_64 engin(seed_gen());
 
-	
-	
+
+
 	//カメラ視点座標を設定
 	//viewProjection_.eye = { 0,0,-50 };
 	//カメラ注視点座標を設定
@@ -48,7 +48,7 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
-	
+
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 	//軸方向表示の表示を有効にする
@@ -57,22 +57,27 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
-	
-	
-	
-	
-	
+
+
+
+
+
 	enemy_ = new Enemy();
-	
+
 	enemy_->Initialize(model_, textureHandle_);
 
 	//skydome_ = new Skydome();
 
 	//skydome_->Initialize(modelSkydome_);
+	
+
+	
+
 
 }
 
 void GameScene::Update() { 
+	
 	//自キャラの更新
 	//キャラクターの移動ベクトル
 	Vector3 move = { 0.0f, 0.0f, 0.0f };
@@ -91,7 +96,7 @@ void GameScene::Update() {
 	if (input_->PushKey(DIK_A)) {
 		move = { -kCharactorSpeed, 0.0f, 0.0f };
 
-		if (worldTransform_.translation_.x <= -5.0f&& viewProjection_.target.x >= -5.0f) {
+		if (worldTransform_.translation_.x <= -5.0f && viewProjection_.target.x >= -5.0f) {
 			cameraMove = { -kEyeSpeed,0.0f,0.0f };
 		}
 
@@ -101,14 +106,14 @@ void GameScene::Update() {
 
 		if (viewProjection_.target.x <= -5.0f) {
 			viewProjection_.fovAngleY += 0.004f;
-			
+
 		}
 
 		else if (viewProjection_.target.x <= 0.0f) {
 			viewProjection_.fovAngleY -= 0.004f;
-			
+
 		}
-		
+
 	}
 	if (input_->PushKey(DIK_D)) {
 		move = { kCharactorSpeed, 0.0f, 0.0f };
@@ -136,7 +141,7 @@ void GameScene::Update() {
 		if (worldTransform_.translation_.y >= 3.0f && viewProjection_.target.y <= 3.0f) {
 			cameraMove = { 0.0f,kEyeSpeed,0.0f };
 		}
-		
+
 		else if (worldTransform_.translation_.y <= -3.0f && viewProjection_.target.y <= 0.0f) {
 			cameraMove = { 0.0f,kEyeSpeed,0.0f };
 		}
@@ -159,7 +164,7 @@ void GameScene::Update() {
 		else if (worldTransform_.translation_.y >= 3.0f && viewProjection_.target.y >= 0.0f) {
 			cameraMove = { 0.0f,-kEyeSpeed,0.0f };
 		}
-		
+
 		if (viewProjection_.target.y <= -3.0f) {
 			viewProjection_.fovAngleY += 0.008f;
 		}
@@ -167,10 +172,10 @@ void GameScene::Update() {
 		else if (viewProjection_.target.y <= 0.0f) {
 			viewProjection_.fovAngleY -= 0.008f;
 		}
-		
+
 
 	}
-	
+
 	//移動限界座標
 	const float kMoveLimitX = 35.0f;
 	const float kMoveLimitY = 18.0f;
@@ -182,9 +187,9 @@ void GameScene::Update() {
 
 	viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, 38.0f * PI / 180);
 	viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 10.0f * PI / 180);
-	
-	
-	
+
+
+
 	//注視点移動(ベクトルの加算)
 	worldTransform_.translation_.x += move.x;
 	worldTransform_.translation_.y += move.y;
@@ -193,7 +198,7 @@ void GameScene::Update() {
 	//関数を使ってプレイヤーを平行移動させる
 	affinTransformation::Trans(worldTransform_);
 
-	
+
 	//視点移動(ベクトルの加算)
 	viewProjection_.target += cameraMove;
 	//行列の再計算
@@ -203,18 +208,18 @@ void GameScene::Update() {
 	//デバッグ用
 	debugText_->SetPos(50, 150);
 	debugText_->Printf("%f,%f,%f", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
-	
+
 	//デバッグ用表示
 	debugText_->SetPos(50, 50);
 	debugText_->Printf(
 		"target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y, viewProjection_.target.z);
-	
-	//デバッグ用表示
-		debugText_->SetPos(50, 110);
-		debugText_->Printf("fovAngleY(Degree):%f", viewProjection_.fovAngleY/PI*180);
-	
 
-	
+	//デバッグ用表示
+	debugText_->SetPos(50, 110);
+	debugText_->Printf("fovAngleY(Degree):%f", viewProjection_.fovAngleY / PI * 180);
+
+
+
 
 	enemy_->Update();
 
@@ -231,7 +236,6 @@ void GameScene::Update() {
 		viewProjection_.matProjection = ;
 	}
 	else {
-
 		viewProjection_.UpdateMatrix();
 	}*/
 }
@@ -265,10 +269,9 @@ void GameScene::Draw() {
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 	//PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3,Vector3,Vector4)
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	
-	enemy_->Draw(viewProjection_);
 
-	//skydome_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
+	
 	//3Dモデル描画
 	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	// 3Dオブジェクト描画後処理
