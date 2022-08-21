@@ -165,7 +165,7 @@ void GameScene::Update() {
 			cameraMove = { 0.0f,-kEyeSpeed,0.0f };
 		}
 
-		else if (worldTransform_.translation_.y >= 3.0f && viewProjection_.target.y >= 0.0f) {
+		else if (worldTransform_.translation_.y >= 3.0f && viewProjection_.target.y >= 0.2f) {
 			cameraMove = { 0.0f,-kEyeSpeed,0.0f };
 		}
 
@@ -173,7 +173,7 @@ void GameScene::Update() {
 			viewProjection_.fovAngleY += 0.008f;
 		}
 
-		else if (viewProjection_.target.y <= 0.0f) {
+		else if (viewProjection_.target.y <= 0.2f) {
 			viewProjection_.fovAngleY -= 0.008f;
 		}
 
@@ -189,10 +189,8 @@ void GameScene::Update() {
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
-	viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, 38.0f * PI / 180);
-	viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 10.0f * PI / 180);
-
-
+	viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, 38.0f * PI / 180.0f);
+	viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 10.0f * PI / 180.0f);
 
 	//注視点移動(ベクトルの加算)
 	worldTransform_.translation_.x += move.x;
@@ -205,6 +203,7 @@ void GameScene::Update() {
 
 	//視点移動(ベクトルの加算)
 	viewProjection_.target += cameraMove;
+
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
 
