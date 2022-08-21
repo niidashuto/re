@@ -7,7 +7,7 @@ namespace affinTransformation {
 	void Trans(WorldTransform worldTransform_);
 	void Com(WorldTransform worldTransform_);
 	void Par(WorldTransform worldTransform_);
-	void mat(Vector3 vec,Matrix4 worldTransform_);
+	
 }
 
 

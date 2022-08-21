@@ -23,6 +23,11 @@ void PlayerBullet::Update()
 
 	//行列を更新
 	affinTransformation::Par(worldTransform_);
+
+	//経過時間でデス
+	if (--deathTimer_ <= 0) {
+		isDead_ = true;
+	}
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection)

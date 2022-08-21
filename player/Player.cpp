@@ -17,6 +17,11 @@ void Player::Initialize(Model* model, uint32_t textureHandle)
 
 void Player::Update()
 {
+	//デスフラグの立った弾を削除
+	bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {
+		return bullet->isDead();
+		});
+
 	//キャラクターの移動処理
 	
 	//キャラクターの移動ベクトル
@@ -103,9 +108,30 @@ void Player::Attack()
 		const float kBulletSpeed = 1.0f;
 
 		Vector3 velocity(0, 0, kBulletSpeed);
+
+		float w = 0.0f;
 		
 		//速度ベクトルを自機の向きに合わせて回転させる
-		velocity = affinTransformation::mat(velocity, worldTransform_.matWorld_);
+		velocity.x = (velocity.x * worldTransform_.matWorld_.m[0][0]) +
+			(velocity.y * worldTransform_.matWorld_.m[1][0]) +
+			(velocity.z * worldTransform_.matWorld_.m[2][0]) +
+			(w * worldTransform_.matWorld_.m[3][0]);
+
+		velocity.y = (velocity.x * worldTransform_.matWorld_.m[0][1]) +
+			(velocity.y * worldTransform_.matWorld_.m[1][1]) +
+			(velocity.z * worldTransform_.matWorld_.m[2][1]) +
+			(w * worldTransform_.matWorld_.m[3][1]);
+
+		velocity.z = (velocity.x * worldTransform_.matWorld_.m[0][2]) +
+			(velocity.y * worldTransform_.matWorld_.m[1][2]) +
+			(velocity.z * worldTransform_.matWorld_.m[2][2]) +
+			(w * worldTransform_.matWorld_.m[3][2]);
+
+		w = (velocity.x * worldTransform_.matWorld_.m[0][3]) +
+			(velocity.y * worldTransform_.matWorld_.m[1][3]) +
+			(velocity.z * worldTransform_.matWorld_.m[2][3]) +
+			(w * worldTransform_.matWorld_.m[3][3]);
+
 		//弾を生成し、初期化
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
 		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
