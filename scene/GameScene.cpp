@@ -18,7 +18,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 	//ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("mario.jpg");
+	textureHandle_ = TextureManager::Load("sentouki01.png");
 	//3Dモデルの生成
 	model_ = Model::Create();
 	//乱数シード生成器
