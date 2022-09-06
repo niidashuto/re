@@ -1,13 +1,11 @@
 #pragma once
-namespace affinTransformation {
-	void Scale(WorldTransform worldTransform_);
-	void RotX(WorldTransform worldTransform_);
-	void RotY(WorldTransform worldTransform_);
-	void RotX(WorldTransform worldTransform_);
-	void Trans(WorldTransform worldTransform_);
-	void Com(WorldTransform worldTransform_);
-	void Par(WorldTransform worldTransform_);
+#include "WorldTransform.h"
+
+namespace affinTransformation
+{
+	void Scale(WorldTransform& worldTransform_);     //スケーリング
+	void Rotate(WorldTransform& worldTransform_);    //回転
+	void Trans(WorldTransform& worldTransform_); //移動
+	void Transfer(WorldTransform& worldTransform_); //全て		
 	
 }
-
-

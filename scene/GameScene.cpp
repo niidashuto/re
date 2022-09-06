@@ -5,6 +5,7 @@
 #include"PrimitiveDrawer.h"
 #include"Object.h"
 #include<random>
+
 float PI = 3.14159265f;
 
 GameScene::GameScene() {}
@@ -14,45 +15,29 @@ GameScene::~GameScene() {}
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
+
 	input_ = Input::GetInstance();
+
 	audio_ = Audio::GetInstance();
+
 	debugText_ = DebugText::GetInstance();
+
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("sentouki01.png");
+
+	
 	//3Dモデルの生成
 	model_ = Model::Create();
+
+
+	//3Dモデルの生成(天球)
+	modelSkydome_ = Model::CreateFromOBJ("tenkyu", true);
 	//乱数シード生成器
 	std::random_device seed_gen;
 	//メルセンヌ・ツイスターの乱数エンジン
 	std::mt19937_64 engin(seed_gen());
 
-	//for (WorldTransform& worldTransform_ : worldTransforms_) {
-	//	//乱数範囲の指定
-	//	std::uniform_real_distribution<float> dist(100.0f, 100.0f);
-	//	float value = dist(engin);
-
-	//	std::uniform_real_distribution<float> Rotdist(0.0f, PI*2);
-	//	float Rotvalue = Rotdist(engin);
-
-	//	std::uniform_real_distribution<float> TransXdist(-10.0f, 10.0f);
-	//	float TransXvalue = TransXdist(engin);
-
-	//	std::uniform_real_distribution<float> TransYdist(-10.0f, 10.0f);
-	//	float TransYvalue = TransYdist(engin);
-
-	//	std::uniform_real_distribution<float> TransZdist(-10.0f, 10.0f);
-	//	float TransZvalue = TransZdist(engin);
-
-	//	worldTransform_.Initialize();
-
-	//	worldTransform_.scale_ = { 1.0f, 1.0f, 1.0f };
-	//	worldTransform_.rotation_ = { Rotvalue,Rotvalue,Rotvalue };
-	//	worldTransform_.translation_ = { TransXvalue,TransYvalue,TransZvalue };
-	//	affinTransformation::Com(worldTransform_);
-
-	//	
-	//	
-	//}
+	
 	
 	//カメラ視点座標を設定
 	//viewProjection_.eye = { 0,0,-10 };
@@ -84,10 +69,15 @@ void GameScene::Initialize() {
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
 	
-
+	enemy_ = new Enemy();
 	
+	enemy_->Initialize(model_, textureHandle_);
 
+	enemy_->SetPlayer(player_);
 
+	skydome_ = new Skydome();
+
+	skydome_->Initialize(modelSkydome_);
 }
 
 void GameScene::Update() { 
@@ -109,6 +99,29 @@ void GameScene::Update() {
 
 		viewProjection_.UpdateMatrix();
 	}*/
+
+	enemy_->Update();
+
+	skydome_->Update();
+}
+
+void GameScene::CheckAllCollisions() {
+	//判定対象AとBの座標
+	Vector3 posA, posB;
+
+	//自弾リストの取得
+	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullet();
+	//敵弾リストの取得
+	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemy_->GetBullet();
+
+#pragma region 自キャラと敵弾の当たり判定
+#pragma endregion
+
+#pragma region 自弾と敵キャラの当たり判定
+#pragma endregion
+
+#pragma region 自弾と敵弾の当たり判定
+#pragma endregion
 }
 
 void GameScene::Draw() {
@@ -140,9 +153,13 @@ void GameScene::Draw() {
 	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 	//PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3,Vector3,Vector4)
 	player_->Draw(viewProjection_);
+
+	enemy_->Draw(viewProjection_);
+
+	skydome_->Draw(viewProjection_);
 	
 	//3Dモデル描画
-	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	//model_->Draw(worldtransform_, debugCamera_->GetViewProjection(), textureHandle_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

@@ -12,6 +12,8 @@
 #include"DebugCamera.h"
 #include"Object.h"
 #include"Player.h"
+#include"Enemy.h"
+#include"Skydome.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -43,6 +45,10 @@ class GameScene {
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
+	void CheckAllCollisions();
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -51,8 +57,12 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+
+	
 	//3Dモデル
 	Model* model_ = nullptr;
+
+	
 	//ワールドトランスフォーム
 	
 	//ビュープロジェクション
@@ -61,6 +71,9 @@ class GameScene {
 	DebugCamera* debugCamera_ = nullptr;
     //カメラ上方向の角度
 	float viewAngle = 0.0f;
+
+	//3Dモデル
+	Model* modelSkydome_ = nullptr;
 public:
 	enum PartId {
 		kRoot,
@@ -77,6 +90,10 @@ public:
 	};
 	//自キャラ
 	Player* player_ = nullptr;
+
+	Enemy* enemy_ = nullptr;
+
+	Skydome* skydome_ = nullptr;
 	//デバックカメラ有効
 	bool isDebugCameraActive_ = false;
 	/// <summary>
